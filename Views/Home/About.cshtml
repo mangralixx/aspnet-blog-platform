@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Про нас";
+}
+
+<main class="main">
+
+    <div class="page-title">
+        <div class="container d-lg-flex justify-content-between align-items-center">
+            <h1 class="mb-2 mb-lg-0">Про нас</h1>
+            <nav class="breadcrumbs">
+                <ol>
+                    <li><a asp-controller="Home" asp-action="Index">Головна</a></li>
+                    <li class="current">Про нас</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <section id="about" class="about section">
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+            <div class="row gy-4 justify-content-center">
+                <div class="col-lg-4">
+                    <img src="~/img/about-img.jpg" class="img-fluid rounded-4 mb-4" alt="Наше фото">
+                </div>
+                <div class="col-lg-5 content">
+                    <h2>Ми створюємо контент, який надихає та об'єднує людей.</h2>
+                    <p class="fst-italic">
+                        ZenBlog — це сучасна платформа для обміну думками, новинами та глибокими історіями.
+                    </p>
+                    <ul>
+                        <li><i class="bi bi-check-circle-fill"></i> <span>Тільки перевірена інформація та якісна аналітика.</span></li>
+                        <li><i class="bi bi-check-circle-fill"></i> <span>Спільнота однодумців та професійних авторів.</span></li>
+                        <li><i class="bi bi-check-circle-fill"></i> <span>Зручний інтерфейс для читання на будь-яких пристроях.</span></li>
+                    </ul>
+                    <p>
+                        Наша місія — допомагати людям знаходити відповіді на важливі питання та відкривати для себе нові горизонти через якісну журналістику та блогінг.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>

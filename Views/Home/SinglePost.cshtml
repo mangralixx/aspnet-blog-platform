@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "Деталі публікації";
+}
+
+<main class="main">
+
+    <div class="page-title">
+        <div class="container d-lg-flex justify-content-between align-items-center">
+            <h1 class="mb-2 mb-lg-0">Публікація</h1>
+            <nav class="breadcrumbs">
+                <ol>
+                    <li><a asp-controller="Home" asp-action="Index">Головна</a></li>
+                    <li class="current">Деталі статті</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <section id="blog-details" class="blog-details section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+
+                    <article class="article">
+
+                        <div class="post-img">
+                            <img src="~/img/blog/blog-1.jpg" alt="Зображення статті" class="img-fluid">
+                        </div>
+
+                        <h2 class="title">Як ASP.NET Core змінює підхід до веб-розробки у 2026 році</h2>
+
+                        <div class="meta-top">
+                            <ul>
+                                <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="#">Адмін</a></li>
+                                <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="#"><time datetime="2026-01-01">7 Лют, 2026</time></a></li>
+                                <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="#">12 Коментарів</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="content">
+                            <p>
+                                Використання Razor Pages та MVC контролерів дозволяє створювати потужні додатки з чіткою структурою. Сьогодні ми розглянули, як налаштувати маршрутизацію, щоб позбутися застарілих .html розширень.
+                            </p>
+
+                            <blockquote>
+                                <p>
+                                    "Програмування — це не лише написання коду, а й створення зручного досвіду для користувача."
+                                </p>
+                            </blockquote>
+
+                            <p>
+                                Тепер, коли ваші кнопки в меню працюють через <code>asp-controller</code> та <code>asp-action</code>, ваш сайт став справжнім динамічним веб-додатком, а не просто набором статичних файлів.
+                            </p>
+                        </div>
+
+                    </article>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>

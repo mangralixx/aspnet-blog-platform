@@ -1,0 +1,19 @@
+﻿@model List<WebApplication.Entities.MenuItem>
+
+@if (Model != null && Model.Any())
+{
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li>
+                <a href="@item.Url">@item.Title</a>
+
+                @if (item.Children.Any())
+                {
+            
+                    @await Html.PartialAsync("_RecursiveMenu", item.Children)
+                }
+            </li>
+        }
+    </ul>
+}

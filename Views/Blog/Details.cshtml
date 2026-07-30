@@ -1,0 +1,63 @@
+﻿@using WebApplication.Entities
+@model Post
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-action="Index">Назад до блогу</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@Model.Title</li>
+                </ol>
+            </nav>
+
+            <article>
+                <header class="mb-4">
+                    <h1 class="display-4 fw-bold">@Model.Title</h1>
+                    <div class="text-muted mb-2">
+                        <span>📅 @Model.DateOfCreated.ToString("dd MMMM yyyy")</span>
+
+                        @* Вивід категорій поста *@
+                        @if (Model.PostCategories != null && Model.PostCategories.Any())
+                        {
+                            <span class="ms-3">
+                                📁
+                                @string.Join(", ", Model.PostCategories.Select(pc => pc.Category?.Name))
+                            </span>
+                        }
+                    </div>
+                </header>
+
+                <hr />
+
+                <div class="content py-3" style="font-size: 1.2rem; line-height: 1.8; text-align: justify;">
+                    @Model.Content
+                </div>
+
+                <hr />
+
+                @* Вивід тегів у футері статті *@
+                @if (Model.PostTags != null && Model.PostTags.Any())
+                {
+                    <div class="mt-4">
+                        <span class="text-muted me-2">Теги:</span>
+                        @foreach (var pt in Model.PostTags)
+                        {
+                            if (pt.Tag != null)
+                            {
+                                <a asp-action="Index" asp-route-tag="@pt.Tag.Slug"
+                                   class="badge bg-light text-secondary border text-decoration-none me-1">
+                                    #@pt.Tag.Title
+                                </a>
+                            }
+                        }
+                    </div>
+                }
+
+                <div class="mt-5 mb-5 text-center">
+                    <a asp-action="Index" class="btn btn-dark px-4">Повернутися до всіх постів</a>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>

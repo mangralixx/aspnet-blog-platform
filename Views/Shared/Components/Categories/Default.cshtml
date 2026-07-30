@@ -1,0 +1,11 @@
+﻿@model IEnumerable<WebApplication.Entities.Category>
+
+<div class="footer-links">
+    <h4>Категорії</h4>
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li><a href="#">@item.Name</a></li>
+        }
+    </ul>
+</div>

@@ -1,0 +1,108 @@
+﻿@using WebApplication.Entities
+@using MyWebApplication.Entities
+@model IEnumerable<Post>
+
+@* Блок діагностики для перевірки даних *@
+<div class="container mt-3">
+    <div class="alert alert-secondary small py-1">
+        Статус: Постів у списку - @(Model?.Count() ?? 0) |
+        Категорій у меню - @(ViewBag.Categories != null ? ((IEnumerable<Category>)ViewBag.Categories).Count() : 0) |
+        Всього тегів - @(ViewBag.Tags != null ? ((IEnumerable<Tag>)ViewBag.Tags).Count() : 0)
+    </div>
+</div>
+
+<div class="container mt-4">
+    <div class="row">
+        @* Основна частина: Пости *@
+        <div class="col-lg-8">
+            <h2 class="mb-4">Список постів</h2>
+
+            @if (Model == null || !Model.Any())
+            {
+                <div class="alert alert-warning">Постів не знайдено. Перевірте базу даних.</div>
+            }
+            else
+            {
+                @foreach (var post in Model)
+                {
+                    <div class="card mb-4 shadow-sm border-0">
+                        <div class="card-body">
+                            <h3>@post.Title</h3>
+                            <small class="text-muted">📅 @post.DateOfCreated.ToString("dd.MM.yyyy")</small>
+
+                            @* Вивід тегів для кожного поста *@
+                            <div class="mt-2">
+                                @if (post.PostTags != null && post.PostTags.Any())
+                                {
+                                    @foreach (var pt in post.PostTags)
+                                    {
+                                        if (pt.Tag != null)
+                                        {
+                                            <span class="badge bg-light text-secondary border me-1">#@pt.Tag.Title</span>
+                                        }
+                                    }
+                                }
+                            </div>
+
+                            <p class="mt-3">
+                                @(post.Content != null && post.Content.Length > 150 ? post.Content.Substring(0, 150) + "..." : post.Content)
+                            </p>
+
+                            <a asp-action="Details" asp-route-slug="@post.Slug" class="btn btn-primary btn-sm">Читати далі</a>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+
+        @* Права панель: Пошук, Категорії, Теги *@
+        <div class="col-lg-4">
+            @* Пошук *@
+            <div class="card mb-4 p-3 bg-light border-0 shadow-sm">
+                <h5>Search</h5>
+                <form asp-action="Index" method="get">
+                    <div class="input-group">
+                        <input type="text" name="searchString" class="form-control" placeholder="Пошук..." value="@ViewData["SearchFilter"]">
+                        <button type="submit" class="btn btn-dark">Знайти</button>
+                    </div>
+                </form>
+            </div>
+
+            @* Категорії (спрощений вивід без рекурсії для стабільності) *@
+            <div class="card mb-4 p-3 border-0 shadow-sm">
+                <h5>Categories</h5>
+                <ul class="list-unstyled mt-2">
+                    @if (ViewBag.Categories != null)
+                    {
+                        @foreach (var cat in (IEnumerable<Category>)ViewBag.Categories)
+                        {
+                            <li>
+                                <a asp-action="Index" asp-route-category="@cat.Slug" class="text-decoration-none text-dark d-block py-1">
+                                    📁 @cat.Name
+                                </a>
+                            </li>
+                        }
+                    }
+                    <li><hr /></li>
+                    <li><a asp-action="Index" class="text-danger text-decoration-none small">❌ Скинути фільтри</a></li>
+                </ul>
+            </div>
+
+            @* Всі теги сайту *@
+            <div class="card mb-4 p-3 border-0 shadow-sm">
+                <h5>Tags</h5>
+                <div class="d-flex flex-wrap gap-2 mt-2">
+                    @if (ViewBag.Tags != null)
+                    {
+                        @foreach (var tag in (IEnumerable<Tag>)ViewBag.Tags)
+                        {
+                            <a asp-action="Index" asp-route-tag="@tag.Slug" class="badge bg-secondary text-decoration-none">
+                                #@tag.Title
+                            </a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

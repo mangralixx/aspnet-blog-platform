@@ -1,0 +1,23 @@
+﻿@model List<WebApplication.Entities.MenuItem>
+
+@foreach (var item in Model)
+{
+    @if (item.Children != null && item.Children.Any())
+    {
+
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="@item.Url" role="button" data-bs-toggle="dropdown">
+                @item.Title
+            </a>
+            <ul class="dropdown-menu">
+
+                @await Html.PartialAsync("_RecursiveMenu", item.Children)
+            </ul>
+        </li>
+    }
+    else
+    {
+        @* Якщо дітей немає — просто посилання *@
+        <li><a class="dropdown-item" href="@item.Url">@item.Title</a></li>
+    }
+}

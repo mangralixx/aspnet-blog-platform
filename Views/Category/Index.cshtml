@@ -1,0 +1,62 @@
+﻿@model List<WebApplication.Entities.MenuItem>
+@{
+    ViewData["Title"] = "Всі категорії";
+}
+
+<div class="container mt-5" data-aos="fade-up">
+    <h1 class="mb-4">Перегляд категорій блогу</h1>
+
+    <div class="row">
+        @* Ліва колонка: Дерево категорій *@
+        <div class="col-md-8">
+            <div class="card mb-4 shadow-sm border-0">
+                <div class="card-body">
+                    <h2 class="card-title h4">Навігація по розділах</h2>
+                    <p class="text-muted small">Клацніть на розділ, щоб побачити підкатегорії.</p>
+                    <hr />
+
+                    @* Виклик рекурсивного Partial View *@
+                    <div class="recursive-container">
+                        @await Html.PartialAsync("_RecursiveMenu", Model)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @* Права колонка: Інфо-блок *@
+        <div class="col-md-4">
+            <div class="p-4 mb-3 bg-light rounded shadow-sm border">
+                <h4>Про дерево категорій</h4>
+                <p class="small text-secondary">
+                    Ця сторінка використовує рекурсивний алгоритм для відображення необмеженої кількості підрівнів.
+                    Ви можете налаштувати стилі ліній у CSS.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .recursive-container ul {
+        list-style: none;
+        padding-left: 2rem;
+        border-left: 2px solid #f8f9fa;
+    }
+
+    .recursive-container li {
+        margin: 12px 0;
+        position: relative;
+    }
+
+    .recursive-container a {
+        text-decoration: none;
+        color: #444;
+        transition: all 0.2s;
+        font-weight: 500;
+    }
+
+        .recursive-container a:hover {
+            color: #f06292;
+            padding-left: 8px;
+        }
+</style>

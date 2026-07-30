@@ -1,0 +1,82 @@
+﻿@model WebApplication.Entities.ClientMessage
+
+<section id="contact" class="contact section">
+    <div class="container section-title" data-aos="fade-up">
+        <h2>Зв'яжіться з нами</h2>
+        <p>Ми завжди на зв'язку та готові допомогти вам з будь-якими питаннями.</p>
+    </div>
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row gy-4">
+            <div class="col-lg-4">
+                <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
+                    <i class="bi bi-geo-alt flex-shrink-0"></i>
+                    <div>
+                        <h3>Адреса</h3>
+                        <p>вул. Центральна, 10, Київ</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                @* Блок уведомления об ошибке *@
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        <strong>Помилка!</strong> Будь ласка, перевірте правильність заповнення полів.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+
+                <form asp-action="SaveClientMessage" asp-controller="Contact" method="post" class="p-4 border rounded shadow-sm bg-light">
+                    @* Скрытый блок для системных ошибок *@
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="row gy-4">
+                        <div class="col-md-6">
+                            <label asp-for="UserName" class="form-label">Ім'я</label>
+                            <input asp-for="UserName" class="form-control" placeholder="Ваше ім'я">
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="UserEmail" class="form-label">Email</label>
+                            <input asp-for="UserEmail" class="form-control" placeholder="Ваш Email">
+                            <span asp-validation-for="UserEmail" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label asp-for="Subject" class="form-label">Тема</label>
+                            <input asp-for="Subject" class="form-control" placeholder="Тема повідомлення">
+                            <span asp-validation-for="Subject" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label asp-for="Message" class="form-label">Повідомлення</label>
+                            <textarea asp-for="Message" class="form-control" rows="6" placeholder="Ваше запитання..."></textarea>
+                            <span asp-validation-for="Message" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-12 text-center">
+                            <button type="submit" class="btn btn-dark px-5 py-2 rounded-pill shadow">
+                                Відправити повідомлення
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+}
+    
+}
